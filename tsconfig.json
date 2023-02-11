@@ -16,6 +16,10 @@
     "allowJs": true,
     "checkJs": true,
     "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@theme": ["src/theme"]
+    }
   },
   "include": ["src", "stubs", "ijl.config.js"],
   "exclude": [

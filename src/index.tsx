@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-
 import App from './app'
+import { ThemeProvider, appTheme } from '@theme'
 
 // eslint-disable-next-line react/display-name
-export default () => <App />
+export default () => (
+  <ThemeProvider theme={appTheme}>
+    <App />
+  </ThemeProvider>
+)
 
 const appContainer = document.getElementById('app')
 if (appContainer === null) {
