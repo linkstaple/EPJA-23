@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'TTNorms-Regular';
+  src: url(./assets/fonts/TTNorms-Regular.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'TTNorms-Bold';
+  src: local('TT Norms Bold'), local('TT-Norms-Bold'), url('./assets/fonts/TTNorms-Bold.woff2') format('woff2'),
+    url('./assets/fonts/TTNorms-Bold.woff') format('woff'), url('./assets/fonts/TTNorms-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'TTNorms-Medium';
+  src: url(./assets/fonts/TTNorms-Medium.ttf) format('truetype');
+}

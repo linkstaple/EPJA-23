@@ -24,10 +24,16 @@ const App = () => {
 }
 
 const useStyles = createStyles(({ colors }) => ({
-  '@global': {},
+  '@global': {
+    '*': {
+      boxSizing: 'border-box',
+    },
+    p: {
+      margin: 0,
+    },
+  },
   app: {
-    background: colors.backgroundMinor,
-    boxSizing: 'border-box',
+    background: colors.background,
     width: '100vw',
     minHeight: '100vh',
   },
