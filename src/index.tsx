@@ -2,12 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './app'
 import { ThemeProvider, appTheme } from '@theme'
+import { BrowserRouter } from 'react-router-dom'
 
 // eslint-disable-next-line react/display-name
 export default () => (
-  <ThemeProvider theme={appTheme}>
-    <App />
-  </ThemeProvider>
+  <BrowserRouter>
+    <ThemeProvider theme={appTheme}>
+      <App />
+    </ThemeProvider>
+  </BrowserRouter>
 )
 
 const appContainer = document.getElementById('app')

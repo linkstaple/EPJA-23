@@ -1,15 +1,27 @@
 import React from 'react'
-import { createStyles } from '@theme'
+import { Suspense } from 'react'
+import { Route, Routes } from 'react-router'
+
+import { routeConfig } from './util/routes'
 
 const App = () => {
-  const c = useStyles()
-  return <h1 className={c.title}>Hello world для проекта - epja-23</h1>
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Routes>
+        {Object.values(routeConfig).map(({ element, path }) => (
+          <Route
+            key={path}
+            path={path}
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <div>{element}</div>
+              </Suspense>
+            }
+          />
+        ))}
+      </Routes>
+    </Suspense>
+  )
 }
-
-const useStyles = createStyles({
-  title: {
-    color: 'blue',
-  },
-})
 
 export default App
