@@ -1,5 +1,4 @@
-import React from 'react'
-import { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router'
 
 import { routeConfig } from './util/routes'
