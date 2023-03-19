@@ -20,7 +20,7 @@ type AppTheme = {
 const appTheme: AppTheme = {
   colors: {
     background: '#000',
-    backgroundMinor: 'linear-gradient(300.29deg, #1C1C1C 37.17%, rgba(28, 28, 28, 0) 160.33%',
+    backgroundMinor: 'linear-gradient(300.29deg, #1C1C1C 37.17%, rgba(28, 28, 28, 0) 160.33%)',
     backgroundLight: '#161922',
     control: '#FFE55C',
     text: '#FFF',

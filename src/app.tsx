@@ -24,8 +24,9 @@ const App = () => {
 }
 
 const useStyles = createStyles(({ colors }) => ({
+  '@global': {},
   app: {
-    background: colors.background,
+    background: colors.backgroundMinor,
     boxSizing: 'border-box',
     width: '100vw',
     minHeight: '100vh',
