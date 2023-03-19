@@ -3,9 +3,32 @@ import { Styles } from 'jss'
 import { createUseStyles } from 'react-jss'
 import { createTheming } from 'theming'
 
-type AppTheme = Record<string, never>
+type ColorNames =
+  | 'background'
+  | 'backgroundMinor'
+  | 'backgroundLight'
+  | 'text'
+  | 'textMinor'
+  | 'control'
+  | 'primaryGreen'
+  | 'secondaryGreen'
 
-const appTheme: AppTheme = {}
+type AppTheme = {
+  colors: Record<ColorNames, string>
+}
+
+const appTheme: AppTheme = {
+  colors: {
+    background: '#000',
+    backgroundMinor: 'linear-gradient(300.29deg, #1C1C1C 37.17%, rgba(28, 28, 28, 0) 160.33%',
+    backgroundLight: '#161922',
+    control: '#FFE55C',
+    text: '#FFF',
+    textMinor: 'rgba(255, 255, 255, 0.55)',
+    primaryGreen: '#85FF92',
+    secondaryGreen: '#3DFF96',
+  },
+}
 
 const context = createContext<AppTheme>(appTheme)
 
@@ -43,9 +66,7 @@ const { ThemeProvider, useTheme } = theming
  * Но по факту передавать надо, иначе ошибка
  */
 function createStyles<StyleProps = unknown, C extends string = string>(
-  styles:
-    | Styles<C, StyleProps, AppTheme>
-    | ((theme: AppTheme) => Styles<C, StyleProps, undefined>),
+  styles: Styles<C, StyleProps, AppTheme> | ((theme: AppTheme) => Styles<C, StyleProps, undefined>),
 ) {
   const useStyles = createUseStyles<C, StyleProps, AppTheme>(styles)
 
