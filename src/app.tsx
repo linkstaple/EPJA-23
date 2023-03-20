@@ -25,6 +25,10 @@ const App = () => {
             path={routeConfig.orders.path}
             element={routeConfig.orders.element}
           />
+          <Route
+            path={routeConfig.order.path}
+            element={routeConfig.order.element}
+          />
         </Routes>
       </Suspense>
     </div>

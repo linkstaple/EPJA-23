@@ -3,21 +3,9 @@ import { Styles } from 'jss'
 import { createUseStyles } from 'react-jss'
 import { createTheming } from 'theming'
 
-type ColorNames =
-  | 'background'
-  | 'backgroundMinor'
-  | 'backgroundLight'
-  | 'text'
-  | 'textMinor'
-  | 'control'
-  | 'primaryGreen'
-  | 'secondaryGreen'
+type AppTheme = typeof appTheme
 
-type AppTheme = {
-  colors: Record<ColorNames, string>
-}
-
-const appTheme: AppTheme = {
+const appTheme = {
   colors: {
     background: '#000',
     backgroundMinor: 'linear-gradient(300.29deg, #1C1C1C 37.17%, rgba(28, 28, 28, 0) 160.33%)',
@@ -27,6 +15,7 @@ const appTheme: AppTheme = {
     textMinor: 'rgba(255, 255, 255, 0.55)',
     primaryGreen: '#85FF92',
     secondaryGreen: '#3DFF96',
+    aqua: '#19FFF1',
   },
 }
 
