@@ -56,7 +56,6 @@ const useStyles = createStyles(({ colors }) => ({
       fontSize: 13,
       lineHeight: '16px',
       color: colors.text,
-      margin: 0,
     },
     '& > img': {
       width: 20,
@@ -67,7 +66,6 @@ const useStyles = createStyles(({ colors }) => ({
   budgetBlock: {
     height: 'min-content',
     '& > p:nth-child(1)': {
-      margin: 0,
       color: colors.text,
     },
   },
