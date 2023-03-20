@@ -10,13 +10,21 @@ const App = () => {
     <div className={c.app}>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          {Object.values(routeConfig).map(({ element, path }) => (
+          {/* {Object.values(routeConfig).map(({ element, path }) => (
             <Route
               key={path}
               path={path}
               element={<Suspense fallback={<div>Loading...</div>}>{element}</Suspense>}
             />
-          ))}
+          ))} */}
+          <Route
+            path={routeConfig.main.path}
+            element={routeConfig.main.element}
+          />
+          <Route
+            path={routeConfig.orders.path}
+            element={routeConfig.orders.element}
+          />
         </Routes>
       </Suspense>
     </div>
@@ -43,6 +51,7 @@ const useStyles = createStyles(({ colors }) => ({
   app: {
     background: colors.background,
     width: '100vw',
+    overflowX: 'hidden',
     minHeight: '100vh',
   },
 }))
