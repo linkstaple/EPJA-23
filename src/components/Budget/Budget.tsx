@@ -1,8 +1,8 @@
 import React, { ChangeEvent, useState } from 'react'
 import { createStyles } from '@theme'
 
-import MoneyIcon from '../../assets/icons/Money.svg'
-import RubleIcon from '../../assets/icons/Ruble.svg'
+import MoneyIcon from '@icons/Money.svg'
+import RubleIcon from '@icons/Ruble.svg'
 
 export const Budget = () => {
   const cls = useStyles()

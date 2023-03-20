@@ -18,7 +18,9 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@theme": ["src/theme"]
+      "@theme": ["src/theme"],
+      "@icons/*": ["src/assets/icons/*"],
+      "@images/*": ["src/assets/images/*"],
     }
   },
   "include": ["src", "stubs", "ijl.config.js"],

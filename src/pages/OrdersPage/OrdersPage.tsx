@@ -1,9 +1,9 @@
 import React from 'react'
 import { createStyles } from '@theme'
 import cn from 'classnames'
-import svg from '../../Arrows, Diagrams/Group.svg'
-import settingsSVG from '../../Arrows, Diagrams/setting-1.svg'
-import forwardIcon from '../../Arrows, Diagrams/Arrow.svg'
+import backSVG from '@icons/Group.svg'
+import settingsSVG from '@icons/setting-1.svg'
+import forwardSVG from '@icons/Arrow.svg'
 
 const times = <T,>(array: T[], timesNumber: number): T[] =>
   timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
@@ -63,7 +63,7 @@ const OrdersPage = () => {
                 </div>
                 <div className={c.offerItemContent}>
                   <div className={c.forwardIcon}>
-                    <img src={forwardIcon} />
+                    <img src={forwardSVG} />
                   </div>
                 </div>
               </td>
@@ -73,7 +73,7 @@ const OrdersPage = () => {
       </div>
       <div className={c.footer}>
         <div className={c.backIcon}>
-          <img src={svg} />
+          <img src={backSVG} />
         </div>
         <div className={c.filterBlock}>
           <p>Фильтр</p>
