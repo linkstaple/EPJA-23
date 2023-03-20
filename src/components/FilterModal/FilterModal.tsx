@@ -105,6 +105,7 @@ const useStyles = createStyles(({ colors }) => ({
     color: '#000',
     padding: 12,
     borderRadius: 52,
+    cursor: 'pointer'
   },
 }))
 
