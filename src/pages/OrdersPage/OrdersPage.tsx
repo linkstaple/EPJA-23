@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createStyles } from '@theme'
 import cn from 'classnames'
 import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
+import FilterModal from 'src/components/FilterModal/FilterModal'
 
 const times = <T,>(array: T[], timesNumber: number): T[] =>
   timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
@@ -20,9 +21,15 @@ const offer = {
 const offersList = times([offer], 10)
 
 const OrdersPage = () => {
+  const [showFilterModal, setShowFilterModal] = useState(false)
   const c = useStyles()
+
+  const onFilterClick = () => setShowFilterModal(true)
+  const closeModal = () => setShowFilterModal(false)
+
   return (
     <div className={c.ordersPageContainer}>
+      {showFilterModal && <FilterModal close={closeModal} />}
       <div className={c.header}>
         <p>Binance</p>
         <p>11:40</p>
@@ -75,7 +82,10 @@ const OrdersPage = () => {
         <div className={c.backIcon}>
           <img src={backSVG} />
         </div>
-        <div className={c.filterBlock}>
+        <div
+          className={c.filterBlock}
+          onClick={onFilterClick}
+        >
           <p>Фильтр</p>
           <img src={settingsSVG} />
         </div>
@@ -104,14 +114,10 @@ const useStyles = createStyles(({ colors }) => ({
 
     '& > p': {
       color: colors.text,
-      margin: 0,
     },
   },
   scrollList: {
     background: colors.background,
-    padding: 0,
-    margin: 0,
-    listStyle: 'none',
     display: 'flex',
     borderTop: '1px solid rgba(255, 255, 255, 0.03)',
     borderBottom: '1px solid rgba(255, 255, 255, 0.03)',
@@ -128,7 +134,6 @@ const useStyles = createStyles(({ colors }) => ({
     background: colors.control,
   },
   offerBlock: {
-    // background: '#252525',
     padding: [16, 12, 14],
   },
   offerList: {
@@ -152,7 +157,6 @@ const useStyles = createStyles(({ colors }) => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     '& > p': {
-      margin: 0,
       fontSize: 15,
       lineHeight: '18px',
     },
@@ -214,7 +218,6 @@ const useStyles = createStyles(({ colors }) => ({
       fontSize: 13,
       lineHeight: '16px',
       color: colors.text,
-      margin: 0,
     },
     '& > img': {
       width: 20,
@@ -225,7 +228,6 @@ const useStyles = createStyles(({ colors }) => ({
   budgetBlock: {
     height: 'min-content',
     '& > p:nth-child(1)': {
-      margin: 0,
       color: colors.text,
     },
   },
