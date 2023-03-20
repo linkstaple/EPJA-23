@@ -28,6 +28,9 @@ const useStyles = createStyles(({ colors }) => ({
     '*': {
       boxSizing: 'border-box',
     },
+    p: {
+      margin: 0,
+    },
   },
   app: {
     background: colors.background,

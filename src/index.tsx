@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './app'
 import { ThemeProvider, appTheme } from '@theme'
 import { BrowserRouter } from 'react-router-dom'
+import './index.css'
 
 // eslint-disable-next-line react/display-name
 export default () => (
