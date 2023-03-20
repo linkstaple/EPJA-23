@@ -1,10 +1,14 @@
 import React, { ChangeEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 
 import MoneyIcon from '@icons/Money.svg'
 import RubleIcon from '@icons/Ruble.svg'
 
+import { routeConfig } from '../../util/routes'
+
 export const Budget = () => {
+  const navigate = useNavigate()
   const cls = useStyles()
 
   const [amount, setAmount] = useState<number>(10000)
@@ -39,7 +43,14 @@ export const Budget = () => {
         </div>
 
         <div className={cls.btnContainer}>
-          <button className={cls.btn}>Продолжить</button>
+          <button
+            className={cls.btn}
+            onClick={() => {
+              navigate(routeConfig.orders.path)
+            }}
+          >
+            Продолжить
+          </button>
         </div>
       </div>
     </div>
