@@ -10,7 +10,6 @@ const times = <T,>(array: T[], timesNumber: number): T[] =>
   timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
 
 const scrollListItems = ['Все', 'USDT', 'BTC', 'BNB', 'ETH', 'BUSD']
-const selectedItemId = 3
 const offer = {
   fromBank: 'Тиньков',
   fromCurrency: 'USDT',
@@ -18,14 +17,16 @@ const offer = {
   toCurrency: 'ETH',
   profit: 240,
 }
-const offersList = times([offer], 10)
+const offersList = times([offer], 30)
 
 const OrdersPage = () => {
   const [showFilterModal, setShowFilterModal] = useState(false)
+  const [selectedCoinId, setSelectedCoinId] = useState(3)
   const c = useStyles()
 
   const onFilterClick = () => setShowFilterModal(true)
   const closeModal = () => setShowFilterModal(false)
+  const onCoinClick = (coinId: number) => () => setSelectedCoinId(coinId)
 
   return (
     <div className={c.ordersPageContainer}>
@@ -40,55 +41,60 @@ const OrdersPage = () => {
           <li
             key={idx}
             className={cn(c.scrollListItem, {
-              [c.scrollListItemSelected]: idx === selectedItemId,
+              [c.scrollListItemSelected]: idx === selectedCoinId,
             })}
+            onClick={onCoinClick(idx)}
           >
             {currency}
           </li>
         ))}
       </ul>
       <div className={c.offerBlock}>
-        <table className={c.offerList}>
-          {offersList.map((offer, idx) => (
-            <tr key={idx}>
-              <td className={c.offerItem}>
-                <div className={c.offerItemContent}>
-                  <p className={c.bankLabel}>{offer.fromBank}</p>
-                  <p className={c.currencyLabel}>{offer.fromCurrency}</p>
-                </div>
-              </td>
-              <td className={c.offerItem}>
-                <div className={c.offerItemContent}>
-                  <p className={c.currencyLabel}>{offer.toCurrency}</p>
-                  <p className={c.bankLabel}>{offer.toBank}</p>
-                </div>
-              </td>
-              <td className={c.offerItem}>
-                <div className={c.offerItemContent}>
-                  <p className={c.profitLabel}>Профит</p>
-                  <p className={c.profitValue}>{`${offer.profit} ₽`}</p>
-                </div>
-                <div className={c.offerItemContent}>
-                  <div className={c.forwardIcon}>
-                    <img src={forwardSVG} />
-                  </div>
-                </div>
-              </td>
-            </tr>
-          ))}
-        </table>
+        <div className={c.tableWrapper}>
+          <table className={c.offerList}>
+            <tbody>
+              {offersList.map((offer, idx) => (
+                <tr key={idx}>
+                  <td className={c.offerItem}>
+                    <div className={c.offerItemContent}>
+                      <p className={c.bankLabel}>{offer.fromBank}</p>
+                      <p className={c.currencyLabel}>{offer.fromCurrency}</p>
+                    </div>
+                  </td>
+                  <td className={c.offerItem}>
+                    <div className={c.offerItemContent}>
+                      <p className={c.currencyLabel}>{offer.toCurrency}</p>
+                      <p className={c.bankLabel}>{offer.toBank}</p>
+                    </div>
+                  </td>
+                  <td className={c.offerItem}>
+                    <div className={c.offerItemContent}>
+                      <p className={c.profitLabel}>Профит</p>
+                      <p className={c.profitValue}>{`${offer.profit} ₽`}</p>
+                    </div>
+                    <div className={c.offerItemContent}>
+                      <div className={c.forwardIcon}>
+                        <img src={forwardSVG} />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className={c.footer}>
         <div className={c.backIcon}>
           <img src={backSVG} />
         </div>
-        <div
+        <button
           className={c.filterBlock}
           onClick={onFilterClick}
         >
           <p>Фильтр</p>
           <img src={settingsSVG} />
-        </div>
+        </button>
         <div className={c.budgetBlock}>
           <p>Бюджет</p>
           <p className={c.priceLabel}>10000 ₽</p>
@@ -105,6 +111,8 @@ const useStyles = createStyles(({ colors }) => ({
     position: 'relative',
     overflowX: 'hidden',
     overflowY: 'hidden',
+    display: 'flex',
+    flexFlow: 'column',
   },
   header: {
     background: colors.backgroundMinor,
@@ -128,6 +136,9 @@ const useStyles = createStyles(({ colors }) => ({
     '& + &': {
       marginLeft: 23,
     },
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   scrollListItemSelected: {
     color: '#000',
@@ -135,6 +146,13 @@ const useStyles = createStyles(({ colors }) => ({
   },
   offerBlock: {
     padding: [16, 12, 14],
+    flex: '1 1 auto',
+    marginBottom: 86,
+    overflow: 'hidden',
+  },
+  tableWrapper: {
+    height: '100%',
+    overflow: 'auto',
   },
   offerList: {
     width: '100%',
@@ -216,7 +234,7 @@ const useStyles = createStyles(({ colors }) => ({
     display: 'flex',
     '& > p': {
       fontSize: 13,
-      lineHeight: '16px',
+      lineHeight: '17px',
       color: colors.text,
     },
     '& > img': {
