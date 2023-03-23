@@ -16,7 +16,7 @@ const initialState: UserState = {
   bankFilter: {
     TinkoffNew: true,
     RosBank: true,
-    RaiffeisenBankRussia: true,
+    RaiffeisenBank: true,
     QIWI: true,
     YandexMoney: true,
     PostBankRussia: true,
@@ -43,23 +43,20 @@ export const userSlice = createSlice({
 
 export const { setOffers, setCoinFilter, setBankFilter } = userSlice.actions
 
-export const useFilteredOffers = () => {
+export const useUserData = () => {
   const { allOffers, bankFilter, coinFilter } = useAppSelector(state => state.user)
   const filteredOffers = useMemo(
     () =>
       allOffers.filter(
         ({ buy, sell }) =>
-          (bankFilter[buy.payType] || bankFilter[sell.payType]) &&
-          coinFilter !== CoinFilterType.All &&
+          ((bankFilter[buy.payType] || bankFilter[sell.payType]) && coinFilter === CoinFilterType.All) ||
           coinFilter === buy.asset,
       ),
-    [allOffers],
+    [allOffers, coinFilter, bankFilter],
   )
 
-  return filteredOffers
+  return { offers: filteredOffers, selectedCoin: coinFilter }
 }
-
-export const useSelectedCoin = () => useAppSelector(state => state.user.coinFilter)
 
 export const coinsList = [
   { title: 'Все', type: CoinFilterType.All },

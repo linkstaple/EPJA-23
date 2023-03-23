@@ -5,7 +5,7 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 import FilterModal from 'src/components/FilterModal/FilterModal'
-import { useFilteredOffers, setCoinFilter, coinsList, useSelectedCoin } from 'src/store/slices/userSlice'
+import { setCoinFilter, coinsList, useUserData } from 'src/store/slices/userSlice'
 import { useAppDispatch } from 'src/hooks/useRedux'
 import { CoinFilterType } from 'src/store/types'
 
@@ -25,8 +25,7 @@ const OrdersPage = () => {
   const c = useStyles()
   const dispatch = useAppDispatch()
 
-  const offers = useFilteredOffers()
-  const selectedCoin = useSelectedCoin()
+  const { offers, selectedCoin } = useUserData()
   const [showFilterModal, setShowFilterModal] = useState(false)
 
   const onFilterClick = () => setShowFilterModal(true)

@@ -1,11 +1,4 @@
-export type BankType =
-  | 'TinkoffNew'
-  | 'RosBank'
-  | 'RaiffeisenBankRussia'
-  | 'QIWI'
-  | 'YandexMoney'
-  | 'PostBankRussia'
-  | 'ABank'
+export type BankType = 'TinkoffNew' | 'RosBank' | 'RaiffeisenBank' | 'QIWI' | 'YandexMoney' | 'PostBankRussia' | 'ABank'
 
 export enum CoinFilterType {
   All = 'All',
