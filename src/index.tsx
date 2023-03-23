@@ -3,15 +3,19 @@ import ReactDOM from 'react-dom/client'
 import App from './app'
 import { ThemeProvider, appTheme } from '@theme'
 import { BrowserRouter } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from './store/store'
 import './index.css'
 
 // eslint-disable-next-line react/display-name
 export default () => (
-  <BrowserRouter>
-    <ThemeProvider theme={appTheme}>
-      <App />
-    </ThemeProvider>
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <ThemeProvider theme={appTheme}>
+        <App />
+      </ThemeProvider>
+    </BrowserRouter>
+  </Provider>
 )
 
 const appContainer = document.getElementById('app')

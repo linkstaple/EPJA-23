@@ -124,6 +124,7 @@ const useStyles = createStyles(({ colors }) => ({
     color: colors.control,
     fontWeight: '700',
     fontSize: 24,
+    padding: 15,
   },
   textYellow: {
     color: colors.control,
@@ -135,11 +136,11 @@ const useStyles = createStyles(({ colors }) => ({
     color: colors.textMinor,
   },
   cell: {
+    width: '100%',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     padding: '0 15px',
-    flexGrow: 1,
   },
   rightBorder: {
     borderRight: '2px solid black',
