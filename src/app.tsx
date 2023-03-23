@@ -1,15 +1,26 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect } from 'react'
 import { Route, Routes } from 'react-router'
+import { io } from 'socket.io-client'
 
 import { routeConfig } from './util/routes'
 import { createStyles } from '@theme'
-import { useAppSelector } from './hooks/useRedux'
 
 const App = () => {
   const c = useStyles()
-  const { test } = useAppSelector(state => state.userReducer)
 
-  console.log(test)
+  useEffect(() => {
+    const socket = io('https://9182739817293213.site')
+
+    const handleSocket = data => {
+      console.log(data)
+    }
+
+    socket.on('cases', handleSocket)
+
+    return () => {
+      socket.off('cases', handleSocket)
+    }
+  }, [])
 
   return (
     <div className={c.app}>
