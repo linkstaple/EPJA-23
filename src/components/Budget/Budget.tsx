@@ -2,12 +2,16 @@ import React, { ChangeEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 
+import { useAppDispatch } from 'src/hooks/useRedux'
+import { setBudget } from 'src/store/slices/budgetSlice'
+
 import MoneyIcon from '@icons/Money.svg'
 import RubleIcon from '@icons/Ruble.svg'
 
 import { routeConfig } from '../../util/routes'
 
 export const Budget = () => {
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const cls = useStyles()
 
@@ -17,6 +21,12 @@ export const Budget = () => {
     const value = e.target.value
     if (RegExp('^[ 0-9]+$').test(value)) setAmount(Number(value))
     if (value === '') setAmount(0)
+  }
+
+  const handleContinue = () => {
+    dispatch(setBudget(amount))
+
+    navigate(routeConfig.orders.path)
   }
 
   return (
@@ -45,9 +55,7 @@ export const Budget = () => {
         <div className={cls.btnContainer}>
           <button
             className={cls.btn}
-            onClick={() => {
-              navigate(routeConfig.orders.path)
-            }}
+            onClick={handleContinue}
           >
             Продолжить
           </button>

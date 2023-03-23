@@ -1,18 +1,28 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import { Offer } from '../types'
 interface IState {
-  test: string
+  budget: number
+  activeCase: Offer
 }
 
 const initialState: IState = {
-  test: '',
+  budget: 10000,
+  activeCase: {},
 }
 
 export const budgetSlice = createSlice({
   name: 'budget',
   initialState,
-  reducers: {},
+  reducers: {
+    setBudget(state, action: PayloadAction<number>) {
+      state.budget = action.payload
+    },
+    setActiveCase(state, action: PayloadAction<Offer>) {
+      state.activeCase = action.payload
+    },
+  },
 })
 
-// export const {} = budgetSlice.actions
+export const { setBudget, setActiveCase } = budgetSlice.actions
 
 export default budgetSlice.reducer
