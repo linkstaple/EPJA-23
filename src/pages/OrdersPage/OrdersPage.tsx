@@ -1,26 +1,23 @@
 import React, { useState } from 'react'
 import { createStyles } from '@theme'
 import cn from 'classnames'
+
+import { useFilteredOffers } from 'src/store/slices/userSlice'
+import { useAppSelector } from 'src/hooks/useRedux'
+
+import FilterModal from 'src/components/FilterModal/FilterModal'
+
 import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
-import FilterModal from 'src/components/FilterModal/FilterModal'
-import { useFilteredOffers } from 'src/store/slices/userSlice'
 
-const times = <T,>(array: T[], timesNumber: number): T[] =>
-  timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
+import { banksMapper } from 'src/util/banksMapper'
 
 const scrollListItems = ['Все', 'USDT', 'BTC', 'BNB', 'ETH', 'BUSD']
-const offer = {
-  fromBank: 'Тиньков',
-  fromCurrency: 'USDT',
-  toBank: 'Тиньков',
-  toCurrency: 'ETH',
-  profit: 240,
-}
-const offersList = times([offer], 30)
 
 const OrdersPage = () => {
+  const { budget } = useAppSelector(state => state.budget)
+
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [selectedCoinId, setSelectedCoinId] = useState(3)
   const c = useStyles()
@@ -56,29 +53,29 @@ const OrdersPage = () => {
         <div className={c.tableWrapper}>
           <table className={c.offerList}>
             <tbody>
-              {offersList.map((offer, idx) => (
+              {offers.map((offer, idx) => (
                 <tr key={idx}>
                   <td className={c.offerItem}>
                     <div className={c.offerItemContent}>
-                      <p className={c.bankLabel}>{offer.fromBank}</p>
-                      <p className={c.currencyLabel}>{offer.fromCurrency}</p>
+                      <p className={c.bankLabel}>{banksMapper[offer.buy.payType]}</p>
+                      <p className={c.currencyLabel}>{offer.buy.asset}</p>
                     </div>
                   </td>
                   <td className={c.offerItem}>
                     <div className={c.offerItemContent}>
-                      <p className={c.currencyLabel}>{offer.toCurrency}</p>
-                      <p className={c.bankLabel}>{offer.toBank}</p>
+                      <p className={c.currencyLabel}>{offer.sell.asset}</p>
+                      <p className={c.bankLabel}>{banksMapper[offer.sell.payType] ?? offer.sell.payType}</p>
                     </div>
                   </td>
                   <td className={c.offerItem}>
                     <div className={c.offerItemContent}>
                       <p className={c.profitLabel}>Профит</p>
-                      <p className={c.profitValue}>{`${offer.profit} ₽`}</p>
+                      <p className={c.profitValue}>{`${Math.floor((offer.profit * budget) / 100)} ₽`}</p>
                     </div>
                     <div className={c.offerItemContent}>
-                      <div className={c.forwardIcon}>
+                      <button className={c.forwardIcon}>
                         <img src={forwardSVG} />
-                      </div>
+                      </button>
                     </div>
                   </td>
                 </tr>
@@ -208,6 +205,7 @@ const useStyles = createStyles(({ colors }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background: 'rgba(0, 0, 0, 0.3)',
+    cursor: 'pointer',
   },
   footer: {
     width: '100%',

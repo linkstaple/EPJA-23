@@ -1,6 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["DOM", "ESNext"],
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
     "outDir": "./dist/",
     "sourceMap": true,
     "esModuleInterop": true,
@@ -9,8 +12,14 @@
     "moduleResolution": "node",
     "target": "es6",
     "jsx": "react",
-    "typeRoots": ["node_modules/@types", "src/typings"],
-    "types": ["webpack-env", "node"],
+    "typeRoots": [
+      "node_modules/@types",
+      "src/typings"
+    ],
+    "types": [
+      "webpack-env",
+      "node"
+    ],
     "resolveJsonModule": true,
     "strict": true,
     "allowJs": true,
@@ -18,12 +27,22 @@
     "skipLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@theme": ["src/theme"],
-      "@icons/*": ["src/assets/icons/*"],
-      "@images/*": ["src/assets/images/*"],
+      "@theme": [
+        "src/theme"
+      ],
+      "@icons/*": [
+        "src/assets/icons/*"
+      ],
+      "@images/*": [
+        "src/assets/images/*"
+      ],
     }
   },
-  "include": ["src", "stubs", "ijl.config.js"],
+  "include": [
+    "src",
+    "stubs",
+    "ijl.config.js"
+  ],
   "exclude": [
     "node_modules",
     "**/*.test.ts",
