@@ -1,15 +1,35 @@
+export type BankType =
+  | 'TinkoffNew'
+  | 'RosBank'
+  | 'RaiffeisenBankRussia'
+  | 'QIWI'
+  | 'YandexMoney'
+  | 'PostBankRussia'
+  | 'ABank'
+
+export enum CoinFilterType {
+  All = 'All',
+  USDT = 'USDT',
+  BTC = 'BTC',
+  BNB = 'BNB',
+  ETH = 'ETH',
+  BUSD = 'BUSD',
+}
+
+type Coin = 'USDT' | 'BTC' | 'BNB' | 'ETH' | 'BUSD'
+
 export type Offer = {
   buy: {
-    asset: string
+    asset: Coin
     price: number
-    payType: string
+    payType: BankType
     minAvailabelAmount: number
     maxAvailableAmount: number
   }
   sell: {
-    asset: string
+    asset: Coin
     price: number
-    payType: string
+    payType: BankType
     minAvailabelAmount: number
     maxAvailableAmount: number
     marketPrice: string

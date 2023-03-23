@@ -5,12 +5,13 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 import FilterModal from 'src/components/FilterModal/FilterModal'
-import { useFilteredOffers } from 'src/store/slices/userSlice'
+import { useFilteredOffers, setCoinFilter, coinsList, useSelectedCoin } from 'src/store/slices/userSlice'
+import { useAppDispatch } from 'src/hooks/useRedux'
+import { CoinFilterType } from 'src/store/types'
 
 const times = <T,>(array: T[], timesNumber: number): T[] =>
   timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
 
-const scrollListItems = ['Все', 'USDT', 'BTC', 'BNB', 'ETH', 'BUSD']
 const offer = {
   fromBank: 'Тиньков',
   fromCurrency: 'USDT',
@@ -21,15 +22,16 @@ const offer = {
 const offersList = times([offer], 30)
 
 const OrdersPage = () => {
-  const [showFilterModal, setShowFilterModal] = useState(false)
-  const [selectedCoinId, setSelectedCoinId] = useState(3)
   const c = useStyles()
+  const dispatch = useAppDispatch()
+
+  const offers = useFilteredOffers()
+  const selectedCoin = useSelectedCoin()
+  const [showFilterModal, setShowFilterModal] = useState(false)
 
   const onFilterClick = () => setShowFilterModal(true)
   const closeModal = () => setShowFilterModal(false)
-  const onCoinClick = (coinId: number) => () => setSelectedCoinId(coinId)
-
-  const offers = useFilteredOffers()
+  const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
 
   return (
     <div className={c.ordersPageContainer}>
@@ -40,15 +42,15 @@ const OrdersPage = () => {
         <p>945 связок </p>
       </div>
       <ul className={c.scrollList}>
-        {scrollListItems.map((currency, idx) => (
+        {coinsList.map(({ title, type }, idx) => (
           <li
             key={idx}
             className={cn(c.scrollListItem, {
-              [c.scrollListItemSelected]: idx === selectedCoinId,
+              [c.scrollListItemSelected]: type === selectedCoin,
             })}
-            onClick={onCoinClick(idx)}
+            onClick={onCoinClick(type)}
           >
-            {currency}
+            {title}
           </li>
         ))}
       </ul>
