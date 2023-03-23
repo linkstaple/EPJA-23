@@ -1,26 +1,13 @@
-import React, { Suspense, useEffect } from 'react'
+import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router'
-import { io } from 'socket.io-client'
 
 import { routeConfig } from './util/routes'
 import { createStyles } from '@theme'
+import useOffersWatcher from './hooks/useOffersWatcher'
 
 const App = () => {
   const c = useStyles()
-
-  useEffect(() => {
-    const socket = io('https://9182739817293213.site')
-
-    const handleSocket = data => {
-      console.log(data)
-    }
-
-    socket.on('cases', handleSocket)
-
-    return () => {
-      socket.off('cases', handleSocket)
-    }
-  }, [])
+  useOffersWatcher()
 
   return (
     <div className={c.app}>

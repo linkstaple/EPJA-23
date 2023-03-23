@@ -5,6 +5,7 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 import FilterModal from 'src/components/FilterModal/FilterModal'
+import { useFilteredOffers } from 'src/store/slices/userSlice'
 
 const times = <T,>(array: T[], timesNumber: number): T[] =>
   timesNumber === 1 ? array : array.concat(times(array, timesNumber - 1))
@@ -27,6 +28,8 @@ const OrdersPage = () => {
   const onFilterClick = () => setShowFilterModal(true)
   const closeModal = () => setShowFilterModal(false)
   const onCoinClick = (coinId: number) => () => setSelectedCoinId(coinId)
+
+  const offers = useFilteredOffers()
 
   return (
     <div className={c.ordersPageContainer}>

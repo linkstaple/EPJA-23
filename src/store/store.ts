@@ -5,8 +5,8 @@ import userReducer from './slices/userSlice'
 import budgetReducer from './slices/budgetSlice'
 
 const rootReducer = combineReducers({
-  userReducer,
-  budgetReducer,
+  user: userReducer,
+  budget: budgetReducer,
 })
 
 const store = configureStore({
