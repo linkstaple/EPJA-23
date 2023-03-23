@@ -3,20 +3,18 @@ import { Route, Routes } from 'react-router'
 
 import { routeConfig } from './util/routes'
 import { createStyles } from '@theme'
+import { useAppSelector } from './hooks/useRedux'
 
 const App = () => {
   const c = useStyles()
+  const { test } = useAppSelector(state => state.userReducer)
+
+  console.log(test)
+
   return (
     <div className={c.app}>
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          {/* {Object.values(routeConfig).map(({ element, path }) => (
-            <Route
-              key={path}
-              path={path}
-              element={<Suspense fallback={<div>Loading...</div>}>{element}</Suspense>}
-            />
-          ))} */}
           <Route
             path={routeConfig.main.path}
             element={routeConfig.main.element}
