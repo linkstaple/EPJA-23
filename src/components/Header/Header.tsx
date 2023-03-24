@@ -1,14 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { createStyles } from '@theme'
+
+import { useFilteredOffers } from 'src/store/slices/userSlice'
 
 const Header = () => {
   const cls = useStyles()
+  const offers = useFilteredOffers()
+
+  const [time, setTime] = useState<string>('')
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(
+        new Date().toLocaleTimeString('en-GB', {
+          timeStyle: 'short',
+        }),
+      )
+    }, 300)
+
+    return () => {
+      clearInterval(timer)
+    }
+  }, [])
 
   return (
     <div className={cls.header}>
       <p>Binance</p>
-      <p>11:40</p>
-      <p>945 связок </p>
+      <p>{time}</p>
+      <p>{offers.length} связок </p>
     </div>
   )
 }

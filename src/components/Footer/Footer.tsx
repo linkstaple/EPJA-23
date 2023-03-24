@@ -23,27 +23,25 @@ const Footer: FC<FooterProps> = ({ onOpenFiter }) => {
   }
 
   return (
-    <>
-      <div className={c.footer}>
-        <button
-          className={c.backIcon}
-          onClick={handleReturn}
-        >
-          <img src={backSVG} />
-        </button>
-        <button
-          className={c.filterBlock}
-          onClick={onOpenFiter}
-        >
-          <p>Фильтр</p>
-          <img src={settingsSVG} />
-        </button>
-        <div className={c.budgetBlock}>
-          <p>Бюджет</p>
-          <p className={c.priceLabel}>{budget} ₽</p>
-        </div>
+    <div className={c.footer}>
+      <button
+        className={c.backIcon}
+        onClick={handleReturn}
+      >
+        <img src={backSVG} />
+      </button>
+      <button
+        className={c.filterBlock}
+        onClick={onOpenFiter}
+      >
+        <p>Фильтр</p>
+        <img src={settingsSVG} />
+      </button>
+      <div className={c.budgetBlock}>
+        <p>Бюджет</p>
+        <p className={c.priceLabel}>{budget} ₽</p>
       </div>
-    </>
+    </div>
   )
 }
 

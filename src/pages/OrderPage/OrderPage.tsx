@@ -1,11 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { createStyles } from '@theme'
 import { useNavigate } from 'react-router-dom'
 import { useAppSelector } from 'src/hooks/useRedux'
 import cn from 'classnames'
-
-import Header from '../../components/Header/Header'
-import Footer from '../../components/Footer/Footer'
 
 import { roundWithAsset } from 'src/util/roundWithAsset'
 import { routeConfig } from 'src/util/routes'
@@ -16,9 +13,7 @@ const OrderPage = () => {
   const cls = useStyles()
   const { activeCase, budget } = useAppSelector(state => state.budget)
 
-  useEffect(() => {
-    if (Object.keys(activeCase).length === 0) navigate(routeConfig.orders.path)
-  }, [activeCase, navigate])
+  if (Object.keys(activeCase).length === 0) return navigate(routeConfig.orders.path)
 
   const buyAmount = roundWithAsset(budget / activeCase.buy.price, activeCase.buy.asset)
   const sellAmount = roundWithAsset(buyAmount / Number(activeCase.sell.marketPrice), activeCase.sell.asset)
