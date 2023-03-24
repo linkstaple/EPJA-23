@@ -63,12 +63,12 @@ const OrdersPage = () => {
         ))}
       </ul>
       <div className={c.offerBlock}>
-        <div
-          className={c.tableWrapper}
-          ref={tableWrapperRef}
-        >
-          {offers.length === 0 && <p className={c.offersNotFoundMessage}>Сделки не найдены</p>}
-          {offers.length !== 0 && (
+        {offers.length === 0 && <p className={c.offersNotFoundMessage}>Сделки не найдены</p>}
+        {offers.length !== 0 && (
+          <div
+            className={c.tableWrapper}
+            ref={tableWrapperRef}
+          >
             <table className={c.offerList}>
               <tbody>
                 {offers.map((offer, idx) => (
@@ -103,8 +103,8 @@ const OrdersPage = () => {
                 ))}
               </tbody>
             </table>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <Footer onOpenFiter={openFilterModal} />
     </div>
@@ -156,13 +156,14 @@ const useStyles = createStyles(({ colors }) => ({
     flex: '1 1 auto',
     marginBottom: 86,
     overflow: 'hidden',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   tableWrapper: {
     height: '100%',
     overflow: 'auto',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: '1 1 auto',
   },
   offerList: {
     width: '100%',
