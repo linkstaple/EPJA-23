@@ -5,6 +5,8 @@ import { routeConfig } from './util/routes'
 import { createStyles } from '@theme'
 import useOffersWatcher from './hooks/useOffersWatcher'
 
+import Layout from './components/Layout/Layout'
+
 const App = () => {
   const c = useStyles()
   useOffersWatcher()
@@ -18,7 +20,10 @@ const App = () => {
             element={routeConfig.main.element}
           />
 
-          <Route path={routeConfig.orders.path}>
+          <Route
+            path={routeConfig.orders.path}
+            element={<Layout />}
+          >
             <Route
               index
               element={routeConfig.orders.element}

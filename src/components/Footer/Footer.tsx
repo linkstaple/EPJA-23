@@ -67,7 +67,6 @@ const useStyles = createStyles(({ colors }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background: 'rgba(19, 17, 26, 0.52)',
-    cursor: 'pointer',
   },
   filterBlock: {
     padding: [11, 11, 11, 13],
@@ -77,13 +76,16 @@ const useStyles = createStyles(({ colors }) => ({
     display: 'flex',
     '& > p': {
       fontSize: 13,
-      lineHeight: '16px',
+      lineHeight: '17px',
       color: colors.text,
     },
     '& > img': {
       width: 20,
       height: 20,
       marginLeft: 16,
+    },
+    '&:hover': {
+      cursor: 'pointer',
     },
   },
   budgetBlock: {
@@ -94,7 +96,6 @@ const useStyles = createStyles(({ colors }) => ({
   },
   priceLabel: {
     color: colors.control,
-    margin: 0,
   },
 }))
 

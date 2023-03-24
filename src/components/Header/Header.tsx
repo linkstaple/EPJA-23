@@ -22,7 +22,6 @@ const useStyles = createStyles(({ colors }) => ({
 
     '& > p': {
       color: colors.text,
-      margin: 0,
     },
   },
 }))
