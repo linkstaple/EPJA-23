@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 import cn from 'classnames'
 
@@ -12,11 +13,14 @@ import { setActiveCase } from 'src/store/slices/budgetSlice'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 import { CoinFilterType, Offer } from 'src/store/types'
 
-import FilterModal from 'src/components/FilterModal/FilterModal'
 import { banksMapper, coinsList } from 'src/consts'
+import { routeConfig } from 'src/util/routes'
+
+import FilterModal from 'src/components/FilterModal/FilterModal'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { budget } = useAppSelector(state => state.budget)
 
   const c = useStyles()
@@ -32,7 +36,10 @@ const OrdersPage = () => {
 
   const openFilterModal = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
-  const onOfferClick = (offer: Offer) => () => dispatch(setActiveCase(offer))
+  const onOfferClick = (offer: Offer) => () => {
+    dispatch(setActiveCase(offer))
+    navigate(routeConfig.order.path)
+  }
 
   return (
     <div className={c.ordersPageContainer}>
