@@ -16,12 +16,14 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.ORDER]: __BASE_ROUTE__ + '/orders/offer',
 }
 
-export const routeConfig: Record<AppRoutes, RouteProps> = {
+type MakeRequired<T, ExcludedKeys extends keyof T> = Omit<T, ExcludedKeys> & Required<Pick<T, ExcludedKeys>>
+
+export const routeConfig: Record<AppRoutes, MakeRequired<RouteProps, 'path'>> = {
   [AppRoutes.MAIN]: {
     path: RoutePath.main,
     element: <MainPage />,
   },
-  [AppRoutes.ORDERS]: {
+  ['orders']: {
     path: RoutePath.orders,
     element: <OrdersPage />,
   },
