@@ -16,8 +16,7 @@ export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.ORDER]: __BASE_ROUTE__ + '/order',
 }
 
-type MakeRequired<T, ExcludedKeys extends keyof T> = Pick<T, Exclude<keyof T, ExcludedKeys>> &
-  Required<Pick<T, ExcludedKeys>>
+type MakeRequired<T, ExcludedKeys extends keyof T> = Omit<T, ExcludedKeys> & Required<Pick<T, ExcludedKeys>>
 
 export const routeConfig: Record<AppRoutes, MakeRequired<RouteProps, 'path'>> = {
   [AppRoutes.MAIN]: {
