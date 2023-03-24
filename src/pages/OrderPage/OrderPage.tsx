@@ -25,8 +25,6 @@ const OrderPage = () => {
 
   return (
     <>
-      <Header />
-
       <div className={cls.subHeader}>
         <div className={cls.banks}>
           <p>
@@ -94,8 +92,6 @@ const OrderPage = () => {
           </div>
         </div>
       </div>
-
-      <Footer />
     </>
   )
 }

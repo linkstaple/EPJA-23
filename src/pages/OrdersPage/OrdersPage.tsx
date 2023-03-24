@@ -15,7 +15,6 @@ import { banksMapper, coinsList } from 'src/consts'
 import { routeConfig } from 'src/util/routes'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
-import Footer from 'src/components/Footer/Footer'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
@@ -33,7 +32,7 @@ const OrdersPage = () => {
     setShowFilterModal(false)
   }
   console.log(offers)
-  const openFilterModal = () => setShowFilterModal(true)
+  // const openFilterModal = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => {
     dispatch(setCoinFilter(coin))
     tableWrapperRef.current?.scrollTo({ top: 0 })
@@ -46,11 +45,6 @@ const OrdersPage = () => {
   return (
     <div className={c.ordersPageContainer}>
       {showFilterModal && <FilterModal close={closeFilterModal} />}
-      <div className={c.header}>
-        <p>Binance</p>
-        <p>11:40</p>
-        <p>945 связок </p>
-      </div>
       <ul className={c.scrollList}>
         {coinsList.map(({ title, type }, idx) => (
           <li
@@ -108,7 +102,6 @@ const OrdersPage = () => {
           )}
         </div>
       </div>
-      <Footer onOpenFiter={openFilterModal} />
     </div>
   )
 }
@@ -122,16 +115,6 @@ const useStyles = createStyles(({ colors }) => ({
     overflowY: 'hidden',
     display: 'flex',
     flexFlow: 'column',
-  },
-  header: {
-    background: colors.backgroundMinor,
-    padding: [16, 21],
-    display: 'flex',
-    justifyContent: 'space-between',
-
-    '& > p': {
-      color: colors.text,
-    },
   },
   scrollList: {
     background: colors.background,
@@ -218,55 +201,6 @@ const useStyles = createStyles(({ colors }) => ({
     alignItems: 'center',
     background: 'rgba(0, 0, 0, 0.3)',
     cursor: 'pointer',
-  },
-  footer: {
-    width: '100%',
-    height: 86,
-    padding: 22,
-    position: 'absolute',
-    bottom: 0,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    background: colors.background,
-  },
-  backIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 5,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    background: 'rgba(19, 17, 26, 0.52)',
-  },
-  filterBlock: {
-    padding: [11, 11, 11, 13],
-    height: 'min-content',
-    borderRadius: 5,
-    background: colors.backgroundLight,
-    display: 'flex',
-    '& > p': {
-      fontSize: 13,
-      lineHeight: '17px',
-      color: colors.text,
-    },
-    '& > img': {
-      width: 20,
-      height: 20,
-      marginLeft: 16,
-    },
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  budgetBlock: {
-    height: 'min-content',
-    '& > p:nth-child(1)': {
-      color: colors.text,
-    },
-  },
-  priceLabel: {
-    color: colors.control,
   },
   offersNotFoundMessage: {
     whiteSpace: 'nowrap',
