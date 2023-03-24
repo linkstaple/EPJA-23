@@ -6,14 +6,14 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 
-import { setCoinFilter, coinsList, BankFilter, setBankFilter, useFilteredOffers } from 'src/store/slices/userSlice'
+import { setCoinFilter, BankFilter, setBankFilter, useFilteredOffers } from 'src/store/slices/userSlice'
 import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 import { CoinFilterType, Offer } from 'src/store/types'
-import { banksMapper } from 'src/util/banksMapper'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
+import { banksMapper, coinsList } from 'src/consts'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()

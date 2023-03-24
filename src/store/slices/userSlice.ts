@@ -53,13 +53,4 @@ export const useFilteredOffers = () =>
     )
   })
 
-export const coinsList = [
-  { title: 'Все', type: CoinFilterType.All },
-  { title: 'USDT', type: CoinFilterType.USDT },
-  { title: 'BTC', type: CoinFilterType.BTC },
-  { title: 'BNB', type: CoinFilterType.BNB },
-  { title: 'ETH', type: CoinFilterType.ETH },
-  { title: 'BUSD', type: CoinFilterType.BUSD },
-] as const
-
 export default userSlice.reducer

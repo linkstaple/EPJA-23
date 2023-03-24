@@ -2,12 +2,10 @@ import { createStyles } from '@theme'
 import cn from 'classnames'
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
+import { banksList, banksMapper } from 'src/consts'
 import { useAppSelector } from 'src/hooks/useRedux'
 import { BankFilter } from 'src/store/slices/userSlice'
 import { BankType } from 'src/store/types'
-import { banksMapper } from 'src/util/banksMapper'
-
-const banksList = Object.keys(banksMapper) as unknown as BankType[]
 
 type FilterModalProps = {
   close: (newFilters: BankFilter) => void
