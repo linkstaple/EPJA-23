@@ -6,7 +6,7 @@ import cn from 'classnames'
 
 import { roundWithAsset } from 'src/util/roundWithAsset'
 import { routeConfig } from 'src/util/routes'
-import { banksMapper } from 'src/consts'
+import { FOOTER_HEIGHT, banksMapper } from 'src/consts'
 
 const OrderPage = () => {
   const navigate = useNavigate()
@@ -19,7 +19,7 @@ const OrderPage = () => {
   const sellAmount = roundWithAsset(buyAmount / Number(activeCase.sell.marketPrice), activeCase.sell.asset)
 
   return (
-    <>
+    <div className={cls.orderPageContainer}>
       <div className={cls.subHeader}>
         <div className={cls.banks}>
           <p>
@@ -87,11 +87,15 @@ const OrderPage = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
 const useStyles = createStyles(({ colors }) => ({
+  orderPageContainer: {
+    flex: 1,
+    marginBottom: FOOTER_HEIGHT,
+  },
   subHeader: {
     height: 40,
     width: '100%',

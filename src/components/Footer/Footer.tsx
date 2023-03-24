@@ -6,6 +6,7 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import { routeConfig } from 'src/util/routes'
 import { useAppSelector } from 'src/hooks/useRedux'
+import { FOOTER_HEIGHT } from 'src/consts'
 
 interface FooterProps {
   onOpenFiter?: () => void
@@ -48,7 +49,7 @@ const Footer: FC<FooterProps> = ({ onOpenFiter }) => {
 const useStyles = createStyles(({ colors }) => ({
   footer: {
     width: '100%',
-    height: 86,
+    height: FOOTER_HEIGHT,
     padding: 22,
     position: 'absolute',
     bottom: 0,
