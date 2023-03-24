@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 import cn from 'classnames'
@@ -21,21 +21,24 @@ import FilterModal from 'src/components/FilterModal/FilterModal'
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const { budget } = useAppSelector(state => state.budget)
-
   const c = useStyles()
+  const tableWrapperRef = useRef<HTMLDivElement>(null)
 
+  const [showFilterModal, setShowFilterModal] = useState(false)
   const offers = useFilteredOffers()
   const selectedCoin = useAppSelector(state => state.user.coinFilter)
-  const [showFilterModal, setShowFilterModal] = useState(false)
+  const { budget } = useAppSelector(state => state.budget)
 
   const closeFilterModal = (newBankFilter: BankFilter) => {
     dispatch(setBankFilter(newBankFilter))
     setShowFilterModal(false)
   }
-
+  console.log(offers)
   const openFilterModal = () => setShowFilterModal(true)
-  const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
+  const onCoinClick = (coin: CoinFilterType) => () => {
+    dispatch(setCoinFilter(coin))
+    tableWrapperRef.current?.scrollTo({ top: 0 })
+  }
   const onOfferClick = (offer: Offer) => () => {
     dispatch(setActiveCase(offer))
     navigate(routeConfig.order.path)
@@ -63,41 +66,47 @@ const OrdersPage = () => {
         ))}
       </ul>
       <div className={c.offerBlock}>
-        <div className={c.tableWrapper}>
-          <table className={c.offerList}>
-            <tbody>
-              {offers.map((offer, idx) => (
-                <tr key={idx}>
-                  <td className={c.offerItem}>
-                    <div className={c.offerItemContent}>
-                      <p className={c.bankLabel}>{banksMapper[offer.buy.payType]}</p>
-                      <p className={c.currencyLabel}>{offer.buy.asset}</p>
-                    </div>
-                  </td>
-                  <td className={c.offerItem}>
-                    <div className={c.offerItemContent}>
-                      <p className={c.currencyLabel}>{offer.sell.asset}</p>
-                      <p className={c.bankLabel}>{banksMapper[offer.sell.payType]}</p>
-                    </div>
-                  </td>
-                  <td className={c.offerItem}>
-                    <div className={c.offerItemContent}>
-                      <p className={c.profitLabel}>Профит</p>
-                      <p className={c.profitValue}>{`${Math.floor((offer.profit * budget) / 100)} ₽`}</p>
-                    </div>
-                    <div className={c.offerItemContent}>
-                      <button
-                        className={c.forwardIcon}
-                        onClick={onOfferClick(offer)}
-                      >
-                        <img src={forwardSVG} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <div
+          className={c.tableWrapper}
+          ref={tableWrapperRef}
+        >
+          {offers.length === 0 && <p className={c.offersNotFoundMessage}>Сделки не найдены</p>}
+          {offers.length !== 0 && (
+            <table className={c.offerList}>
+              <tbody>
+                {offers.map((offer, idx) => (
+                  <tr key={idx}>
+                    <td className={c.offerItem}>
+                      <div className={c.offerItemContent}>
+                        <p className={c.bankLabel}>{banksMapper[offer.buy.payType]}</p>
+                        <p className={c.currencyLabel}>{offer.buy.asset}</p>
+                      </div>
+                    </td>
+                    <td className={c.offerItem}>
+                      <div className={c.offerItemContent}>
+                        <p className={c.currencyLabel}>{offer.sell.asset}</p>
+                        <p className={c.bankLabel}>{banksMapper[offer.sell.payType]}</p>
+                      </div>
+                    </td>
+                    <td className={c.offerItem}>
+                      <div className={c.offerItemContent}>
+                        <p className={c.profitLabel}>Профит</p>
+                        <p className={c.profitValue}>{`${Math.floor((offer.profit * budget) / 100)} ₽`}</p>
+                      </div>
+                      <div className={c.offerItemContent}>
+                        <button
+                          className={c.forwardIcon}
+                          onClick={onOfferClick(offer)}
+                        >
+                          <img src={forwardSVG} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
       <div className={c.footer}>
@@ -169,6 +178,9 @@ const useStyles = createStyles(({ colors }) => ({
   tableWrapper: {
     height: '100%',
     overflow: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   offerList: {
     width: '100%',
@@ -271,7 +283,13 @@ const useStyles = createStyles(({ colors }) => ({
   },
   priceLabel: {
     color: colors.control,
-    margin: 0,
+  },
+  offersNotFoundMessage: {
+    whiteSpace: 'nowrap',
+    fontSize: 33,
+    lineHeight: '37px',
+    fontWeight: 600,
+    color: colors.text,
   },
 }))
 

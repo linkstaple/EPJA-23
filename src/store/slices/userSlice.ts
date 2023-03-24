@@ -45,11 +45,14 @@ export const { setOffers, setCoinFilter, setBankFilter } = userSlice.actions
 export const useFilteredOffers = () =>
   useAppSelector(state => {
     const { allOffers, bankFilter, coinFilter } = state.user
+    const { budget } = state.budget
     return allOffers.filter(
       ({ buy, sell }) =>
         bankFilter[buy.payType] &&
         bankFilter[sell.payType] &&
-        (coinFilter === CoinFilterType.All || coinFilter === buy.asset),
+        (coinFilter === CoinFilterType.All || coinFilter === buy.asset) &&
+        budget >= buy.minAvailabelAmount &&
+        budget <= buy.maxAvailableAmount,
     )
   })
 
