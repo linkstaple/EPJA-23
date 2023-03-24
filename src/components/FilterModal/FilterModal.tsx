@@ -3,15 +3,16 @@ import cn from 'classnames'
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { banksList, banksMapper } from 'src/consts'
-import { useAppSelector } from 'src/hooks/useRedux'
-import { BankFilter } from 'src/store/slices/userSlice'
+import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
+import { setBankFilter } from 'src/store/slices/userSlice'
 import { BankType } from 'src/store/types'
 
 type FilterModalProps = {
-  close: (newFilters: BankFilter) => void
+  close: () => void
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({ close }) => {
+  const dispatch = useAppDispatch()
   const c = useStyles()
   const banksFilter = useAppSelector(state => state.user.bankFilter)
   const [filterState, setFilterState] = useState(() => ({ ...banksFilter }))
@@ -24,7 +25,8 @@ const FilterModal: React.FC<FilterModalProps> = ({ close }) => {
   }
 
   const closeModal = () => {
-    close(filterState)
+    dispatch(setBankFilter(filterState))
+    close()
   }
 
   return createPortal(

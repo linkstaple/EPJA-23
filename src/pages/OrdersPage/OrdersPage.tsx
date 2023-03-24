@@ -5,7 +5,7 @@ import cn from 'classnames'
 
 import forwardSVG from '@icons/Arrow.svg'
 
-import { setCoinFilter, BankFilter, setBankFilter, useFilteredOffers } from 'src/store/slices/userSlice'
+import { setCoinFilter, useFilteredOffers } from 'src/store/slices/userSlice'
 import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
@@ -27,12 +27,10 @@ const OrdersPage = () => {
   const selectedCoin = useAppSelector(state => state.user.coinFilter)
   const { budget } = useAppSelector(state => state.budget)
 
-  const closeFilterModal = (newBankFilter: BankFilter) => {
-    dispatch(setBankFilter(newBankFilter))
+  const closeFilterModal = () => {
     setShowFilterModal(false)
   }
-  console.log(offers)
-  // const openFilterModal = () => setShowFilterModal(true)
+  const openFilterModal = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => {
     dispatch(setCoinFilter(coin))
     tableWrapperRef.current?.scrollTo({ top: 0 })
