@@ -1,35 +1,27 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { createStyles } from '@theme'
+import { useNavigate } from 'react-router-dom'
+import { useAppSelector } from 'src/hooks/useRedux'
 import cn from 'classnames'
 
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
-import { useAppSelector } from 'src/hooks/useRedux'
-import { CoinFilterType } from 'src/store/types'
-import { banksMapper } from 'src/util/banksMapper'
+
+import { roundWithAsset } from 'src/util/roundWithAsset'
+import { routeConfig } from 'src/util/routes'
+import { banksMapper } from 'src/consts'
 
 const OrderPage = () => {
-  const { activeCase, budget } = useAppSelector(state => state.budget)
+  const navigate = useNavigate()
   const cls = useStyles()
+  const { activeCase, budget } = useAppSelector(state => state.budget)
+
+  useEffect(() => {
+    if (Object.keys(activeCase) === 0) navigate(routeConfig.orders.path)
+  }, [activeCase, navigate])
 
   const buyAmount = roundWithAsset(budget / activeCase.buy.price, activeCase.buy.asset)
   const sellAmount = roundWithAsset(buyAmount / activeCase.sell.marketPrice, activeCase.sell.asset)
-
-  function roundWithAsset(data: number, asset: CoinFilterType) {
-    switch (asset) {
-      case CoinFilterType.USDT:
-      case CoinFilterType.BUSD:
-        return data.toFixed(2)
-
-      case CoinFilterType.BTC:
-      case CoinFilterType.ETH:
-      case CoinFilterType.BNB:
-        return data.toFixed(8)
-
-      default:
-        return data.toFixed(0)
-    }
-  }
 
   return (
     <>
