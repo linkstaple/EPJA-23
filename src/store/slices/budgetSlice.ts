@@ -7,7 +7,7 @@ interface IState {
 
 const initialState: IState = {
   budget: 10000,
-  activeCase: {},
+  activeCase: {} as Offer,
 }
 
 export const budgetSlice = createSlice({

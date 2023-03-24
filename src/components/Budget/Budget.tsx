@@ -26,7 +26,7 @@ export const Budget = () => {
   const handleContinue = () => {
     dispatch(setBudget(amount))
 
-    navigate(routeConfig.orders.path)
+    navigate(routeConfig.orders.path as string)
   }
 
   return (

@@ -1,4 +1,4 @@
-export const banksMapper = {
+export const banksMapper: { [x: string]: string } = {
   TinkoffNew: 'Тинькофф',
   RosBank: 'Росбанк',
   RaiffeisenBank: 'Райффайзенбанк',

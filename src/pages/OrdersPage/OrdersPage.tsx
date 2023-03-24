@@ -3,7 +3,7 @@ import { createStyles } from '@theme'
 import cn from 'classnames'
 
 import { useFilteredOffers } from 'src/store/slices/userSlice'
-import { useAppSelector } from 'src/hooks/useRedux'
+import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
 
@@ -12,18 +12,20 @@ import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 
 import { banksMapper } from 'src/util/banksMapper'
+import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 const scrollListItems = ['Все', 'USDT', 'BTC', 'BNB', 'ETH', 'BUSD']
 
 const OrdersPage = () => {
+  const dispatch = useAppDispatch()
   const { budget } = useAppSelector(state => state.budget)
 
   const [showFilterModal, setShowFilterModal] = useState(false)
   const [selectedCoinId, setSelectedCoinId] = useState(3)
   const c = useStyles()
 
-  const onFilterClick = () => setShowFilterModal(true)
   const closeModal = () => setShowFilterModal(false)
+  const onFilterClick = () => setShowFilterModal(true)
   const onCoinClick = (coinId: number) => () => setSelectedCoinId(coinId)
 
   const offers = useFilteredOffers()
@@ -64,7 +66,7 @@ const OrdersPage = () => {
                   <td className={c.offerItem}>
                     <div className={c.offerItemContent}>
                       <p className={c.currencyLabel}>{offer.sell.asset}</p>
-                      <p className={c.bankLabel}>{banksMapper[offer.sell.payType] ?? offer.sell.payType}</p>
+                      <p className={c.bankLabel}>{banksMapper[offer.sell.payType]}</p>
                     </div>
                   </td>
                   <td className={c.offerItem}>
@@ -73,7 +75,10 @@ const OrdersPage = () => {
                       <p className={c.profitValue}>{`${Math.floor((offer.profit * budget) / 100)} ₽`}</p>
                     </div>
                     <div className={c.offerItemContent}>
-                      <button className={c.forwardIcon}>
+                      <button
+                        className={c.forwardIcon}
+                        onClick={() => dispatch(setActiveCase(offer))}
+                      >
                         <img src={forwardSVG} />
                       </button>
                     </div>
