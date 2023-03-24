@@ -13,7 +13,7 @@ export const __BASE_ROUTE__ = '/epja-23'
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: __BASE_ROUTE__ + '/',
   [AppRoutes.ORDERS]: __BASE_ROUTE__ + '/orders',
-  [AppRoutes.ORDER]: __BASE_ROUTE__ + '/order',
+  [AppRoutes.ORDER]: __BASE_ROUTE__ + '/orders/offer',
 }
 
 export const routeConfig: Record<AppRoutes, RouteProps> = {

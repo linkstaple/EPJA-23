@@ -17,11 +17,11 @@ const OrderPage = () => {
   const { activeCase, budget } = useAppSelector(state => state.budget)
 
   useEffect(() => {
-    if (Object.keys(activeCase) === 0) navigate(routeConfig.orders.path)
+    if (Object.keys(activeCase).length === 0) navigate(routeConfig.orders.path)
   }, [activeCase, navigate])
 
   const buyAmount = roundWithAsset(budget / activeCase.buy.price, activeCase.buy.asset)
-  const sellAmount = roundWithAsset(buyAmount / activeCase.sell.marketPrice, activeCase.sell.asset)
+  const sellAmount = roundWithAsset(buyAmount / Number(activeCase.sell.marketPrice), activeCase.sell.asset)
 
   return (
     <>

@@ -17,14 +17,17 @@ const App = () => {
             path={routeConfig.main.path}
             element={routeConfig.main.element}
           />
-          <Route
-            path={routeConfig.orders.path}
-            element={routeConfig.orders.element}
-          />
-          <Route
-            path={routeConfig.order.path}
-            element={routeConfig.order.element}
-          />
+
+          <Route path={routeConfig.orders.path}>
+            <Route
+              index
+              element={routeConfig.orders.element}
+            />
+            <Route
+              path={routeConfig.order.path}
+              element={routeConfig.order.element}
+            />
+          </Route>
         </Routes>
       </Suspense>
     </div>

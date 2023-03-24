@@ -9,7 +9,7 @@ export enum CoinFilterType {
   BUSD = 'BUSD',
 }
 
-type Coin = 'USDT' | 'BTC' | 'BNB' | 'ETH' | 'BUSD'
+export type Coin = 'USDT' | 'BTC' | 'BNB' | 'ETH' | 'BUSD'
 
 export type Offer = {
   buy: {
