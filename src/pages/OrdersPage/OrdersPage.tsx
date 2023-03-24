@@ -3,8 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 import cn from 'classnames'
 
-import backSVG from '@icons/Group.svg'
-import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 
 import { setCoinFilter, BankFilter, setBankFilter, useFilteredOffers } from 'src/store/slices/userSlice'
@@ -17,6 +15,7 @@ import { banksMapper, coinsList } from 'src/consts'
 import { routeConfig } from 'src/util/routes'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
+import Footer from 'src/components/Footer/Footer'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
@@ -109,22 +108,7 @@ const OrdersPage = () => {
           )}
         </div>
       </div>
-      <div className={c.footer}>
-        <div className={c.backIcon}>
-          <img src={backSVG} />
-        </div>
-        <button
-          className={c.filterBlock}
-          onClick={openFilterModal}
-        >
-          <p>Фильтр</p>
-          <img src={settingsSVG} />
-        </button>
-        <div className={c.budgetBlock}>
-          <p>Бюджет</p>
-          <p className={c.priceLabel}>10000 ₽</p>
-        </div>
-      </div>
+      <Footer onOpenFiter={openFilterModal} />
     </div>
   )
 }
