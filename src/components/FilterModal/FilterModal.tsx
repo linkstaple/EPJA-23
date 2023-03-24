@@ -2,40 +2,44 @@ import { createStyles } from '@theme'
 import cn from 'classnames'
 import React, { useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useAppSelector } from 'src/hooks/useRedux'
+import { BankFilter } from 'src/store/slices/userSlice'
+import { BankType } from 'src/store/types'
+import { banksMapper } from 'src/util/banksMapper'
 
-const banksList = ['Тинькофф', 'Альфа Банк', 'Райффайзен', 'Росбанк', 'Юмани', 'Киви', 'МТС']
+const banksList = Object.keys(banksMapper) as unknown as BankType[]
 
 type FilterModalProps = {
-  close: (selectedIds: number[]) => void
+  close: (newFilters: BankFilter) => void
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({ close }) => {
   const c = useStyles()
-  const [selectedIds, setSelectedIds] = useState(new Set([0, 2, 3, 5]))
+  const banksFilter = useAppSelector(state => state.user.bankFilter)
+  const [filterState, setFilterState] = useState(() => ({ ...banksFilter }))
 
-  const selectId = (id: number) => () => {
-    setSelectedIds(prevIds => {
-      if (prevIds.has(id)) prevIds.delete(id)
-      else prevIds.add(id)
-      return new Set(prevIds)
+  const onBankClick = (bankId: BankType) => () => {
+    setFilterState(prevState => {
+      prevState[bankId] = !prevState[bankId]
+      return { ...prevState }
     })
   }
 
   const closeModal = () => {
-    close(Array.from(selectedIds))
+    close(filterState)
   }
 
   return createPortal(
     <div className={c.layout}>
       <p className={c.headerLabel}>Банки и платёжки</p>
       <ul>
-        {banksList.map((bankName, idx) => (
+        {banksList.map((bankId, idx) => (
           <li
             key={idx}
-            className={cn(c.banksListItem, { [c.banksListItemActive]: selectedIds.has(idx) })}
-            onClick={selectId(idx)}
+            className={cn(c.banksListItem, { [c.banksListItemActive]: filterState[bankId] })}
+            onClick={onBankClick(bankId)}
           >
-            {bankName}
+            {banksMapper[bankId]}
           </li>
         ))}
       </ul>

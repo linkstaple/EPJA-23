@@ -1,9 +1,8 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import { BankType, CoinFilterType, Offer } from '../types'
 import { useAppSelector } from 'src/hooks/useRedux'
-import { useMemo } from 'react'
 
-type BankFilter = Record<BankType, boolean>
+export type BankFilter = Record<BankType, boolean>
 
 type UserState = {
   allOffers: Offer[]
@@ -43,20 +42,16 @@ export const userSlice = createSlice({
 
 export const { setOffers, setCoinFilter, setBankFilter } = userSlice.actions
 
-export const useUserData = () => {
-  const { allOffers, bankFilter, coinFilter } = useAppSelector(state => state.user)
-  const filteredOffers = useMemo(
-    () =>
-      allOffers.filter(
-        ({ buy, sell }) =>
-          ((bankFilter[buy.payType] || bankFilter[sell.payType]) && coinFilter === CoinFilterType.All) ||
-          coinFilter === buy.asset,
-      ),
-    [allOffers, coinFilter, bankFilter],
-  )
-
-  return { offers: filteredOffers, selectedCoin: coinFilter }
-}
+export const useFilteredOffers = () =>
+  useAppSelector(state => {
+    const { allOffers, bankFilter, coinFilter } = state.user
+    return allOffers.filter(
+      ({ buy, sell }) =>
+        bankFilter[buy.payType] &&
+        bankFilter[sell.payType] &&
+        (coinFilter === CoinFilterType.All || coinFilter === buy.asset),
+    )
+  })
 
 export const coinsList = [
   { title: 'Все', type: CoinFilterType.All },

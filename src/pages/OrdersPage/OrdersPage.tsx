@@ -6,12 +6,12 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 
-import { setCoinFilter, coinsList, useUserData } from 'src/store/slices/userSlice'
+import { setCoinFilter, coinsList, BankFilter, setBankFilter, useFilteredOffers } from 'src/store/slices/userSlice'
+import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
-import { CoinFilterType } from 'src/store/types'
+import { CoinFilterType, Offer } from 'src/store/types'
 import { banksMapper } from 'src/util/banksMapper'
-import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
 
@@ -20,18 +20,23 @@ const OrdersPage = () => {
   const { budget } = useAppSelector(state => state.budget)
 
   const c = useStyles()
-  const dispatch = useAppDispatch()
 
-  const { offers, selectedCoin } = useUserData()
+  const offers = useFilteredOffers()
+  const selectedCoin = useAppSelector(state => state.user.coinFilter)
   const [showFilterModal, setShowFilterModal] = useState(false)
 
-  const closeModal = () => setShowFilterModal(false)
-  const onFilterClick = () => setShowFilterModal(true)
+  const closeFilterModal = (newBankFilter: BankFilter) => {
+    dispatch(setBankFilter(newBankFilter))
+    setShowFilterModal(false)
+  }
+
+  const openFilterModal = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
+  const onOfferClick = (offer: Offer) => () => dispatch(setActiveCase(offer))
 
   return (
     <div className={c.ordersPageContainer}>
-      {showFilterModal && <FilterModal close={closeModal} />}
+      {showFilterModal && <FilterModal close={closeFilterModal} />}
       <div className={c.header}>
         <p>Binance</p>
         <p>11:40</p>
@@ -76,7 +81,7 @@ const OrdersPage = () => {
                     <div className={c.offerItemContent}>
                       <button
                         className={c.forwardIcon}
-                        onClick={() => dispatch(setActiveCase(offer))}
+                        onClick={onOfferClick(offer)}
                       >
                         <img src={forwardSVG} />
                       </button>
@@ -94,7 +99,7 @@ const OrdersPage = () => {
         </div>
         <button
           className={c.filterBlock}
-          onClick={onFilterClick}
+          onClick={openFilterModal}
         >
           <p>Фильтр</p>
           <img src={settingsSVG} />
@@ -246,6 +251,9 @@ const useStyles = createStyles(({ colors }) => ({
       width: 20,
       height: 20,
       marginLeft: 16,
+    },
+    '&:hover': {
+      cursor: 'pointer',
     },
   },
   budgetBlock: {
