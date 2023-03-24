@@ -2,33 +2,32 @@ import React, { useState } from 'react'
 import { createStyles } from '@theme'
 import cn from 'classnames'
 
-import { useFilteredOffers } from 'src/store/slices/userSlice'
-import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
-
-import FilterModal from 'src/components/FilterModal/FilterModal'
-
 import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import forwardSVG from '@icons/Arrow.svg'
 
+import { setCoinFilter, coinsList, useUserData } from 'src/store/slices/userSlice'
+
+import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
+import { CoinFilterType } from 'src/store/types'
 import { banksMapper } from 'src/util/banksMapper'
 import { setActiveCase } from 'src/store/slices/budgetSlice'
 
-const scrollListItems = ['Все', 'USDT', 'BTC', 'BNB', 'ETH', 'BUSD']
+import FilterModal from 'src/components/FilterModal/FilterModal'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
   const { budget } = useAppSelector(state => state.budget)
 
-  const [showFilterModal, setShowFilterModal] = useState(false)
-  const [selectedCoinId, setSelectedCoinId] = useState(3)
   const c = useStyles()
+  const dispatch = useAppDispatch()
+
+  const { offers, selectedCoin } = useUserData()
+  const [showFilterModal, setShowFilterModal] = useState(false)
 
   const closeModal = () => setShowFilterModal(false)
   const onFilterClick = () => setShowFilterModal(true)
-  const onCoinClick = (coinId: number) => () => setSelectedCoinId(coinId)
-
-  const offers = useFilteredOffers()
+  const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
 
   return (
     <div className={c.ordersPageContainer}>
@@ -39,15 +38,15 @@ const OrdersPage = () => {
         <p>945 связок </p>
       </div>
       <ul className={c.scrollList}>
-        {scrollListItems.map((currency, idx) => (
+        {coinsList.map(({ title, type }, idx) => (
           <li
             key={idx}
             className={cn(c.scrollListItem, {
-              [c.scrollListItemSelected]: idx === selectedCoinId,
+              [c.scrollListItemSelected]: type === selectedCoin,
             })}
-            onClick={onCoinClick(idx)}
+            onClick={onCoinClick(type)}
           >
-            {currency}
+            {title}
           </li>
         ))}
       </ul>

@@ -1,29 +1,28 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import { Offer } from '../types'
+import { BankType, CoinFilterType, Offer } from '../types'
 import { useAppSelector } from 'src/hooks/useRedux'
+import { useMemo } from 'react'
 
-type CoinType = 'Tinkoff' | 'RosBank' | 'RaiffeisenBankRussia' | 'QIWI' | 'YandexMoney' | 'PostBankRussia' | 'ABank'
-
-type BankFilter = Record<CoinType, boolean>
+type BankFilter = Record<BankType, boolean>
 
 type UserState = {
   allOffers: Offer[]
   bankFilter: BankFilter
-  coinFilter: string | null
+  coinFilter: CoinFilterType
 }
 
 const initialState: UserState = {
   allOffers: [],
   bankFilter: {
-    Tinkoff: true,
+    TinkoffNew: true,
     RosBank: true,
-    RaiffeisenBankRussia: true,
+    RaiffeisenBank: true,
     QIWI: true,
     YandexMoney: true,
     PostBankRussia: true,
     ABank: true,
   },
-  coinFilter: null,
+  coinFilter: CoinFilterType.All,
 }
 
 export const userSlice = createSlice({
@@ -33,11 +32,8 @@ export const userSlice = createSlice({
     setOffers: (state, action: PayloadAction<Offer[]>) => {
       state.allOffers = action.payload
     },
-    setCoinFilter: (state, action: PayloadAction<string>) => {
+    setCoinFilter: (state, action: PayloadAction<CoinFilterType>) => {
       state.coinFilter = action.payload
-    },
-    clearCoinFilter: state => {
-      state.coinFilter = null
     },
     setBankFilter: (state, action: PayloadAction<BankFilter>) => {
       state.bankFilter = action.payload
@@ -45,8 +41,30 @@ export const userSlice = createSlice({
   },
 })
 
-export const { setOffers, setCoinFilter, clearCoinFilter, setBankFilter } = userSlice.actions
+export const { setOffers, setCoinFilter, setBankFilter } = userSlice.actions
 
-export const useFilteredOffers = () => useAppSelector(state => state.user.allOffers)
+export const useUserData = () => {
+  const { allOffers, bankFilter, coinFilter } = useAppSelector(state => state.user)
+  const filteredOffers = useMemo(
+    () =>
+      allOffers.filter(
+        ({ buy, sell }) =>
+          ((bankFilter[buy.payType] || bankFilter[sell.payType]) && coinFilter === CoinFilterType.All) ||
+          coinFilter === buy.asset,
+      ),
+    [allOffers, coinFilter, bankFilter],
+  )
+
+  return { offers: filteredOffers, selectedCoin: coinFilter }
+}
+
+export const coinsList = [
+  { title: 'Все', type: CoinFilterType.All },
+  { title: 'USDT', type: CoinFilterType.USDT },
+  { title: 'BTC', type: CoinFilterType.BTC },
+  { title: 'BNB', type: CoinFilterType.BNB },
+  { title: 'ETH', type: CoinFilterType.ETH },
+  { title: 'BUSD', type: CoinFilterType.BUSD },
+] as const
 
 export default userSlice.reducer
