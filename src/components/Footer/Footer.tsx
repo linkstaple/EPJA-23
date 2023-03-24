@@ -6,7 +6,7 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import { routeConfig } from 'src/util/routes'
 import { useAppSelector } from 'src/hooks/useRedux'
-import { FOOTER_HEIGHT } from 'src/consts';
+import { FOOTER_HEIGHT } from 'src/consts'
 
 interface FooterProps {
   onOpenFiter?: () => void
@@ -31,13 +31,13 @@ const Footer: FC<FooterProps> = ({ onOpenFiter }) => {
       >
         <img src={backSVG} />
       </button>
-      <div
+      <button
         className={c.filterBlock}
         onClick={onOpenFiter}
       >
         <p>Фильтр</p>
         <img src={settingsSVG} />
-      </div>
+      </button>
       <div className={c.budgetBlock}>
         <p>Бюджет</p>
         <p className={c.priceLabel}>{budget} ₽</p>
@@ -66,6 +66,7 @@ const useStyles = createStyles(({ colors }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     background: 'rgba(19, 17, 26, 0.52)',
+    cursor: 'pointer',
   },
   filterBlock: {
     padding: [11, 11, 11, 13],

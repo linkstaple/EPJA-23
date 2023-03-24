@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createStyles } from '@theme'
 import cn from 'classnames'
@@ -14,23 +14,16 @@ import { CoinFilterType, Offer } from 'src/store/types'
 import { FOOTER_HEIGHT, banksMapper, coinsList } from 'src/consts'
 import { routeConfig } from 'src/util/routes'
 
-import FilterModal from 'src/components/FilterModal/FilterModal'
-
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const c = useStyles()
   const tableWrapperRef = useRef<HTMLDivElement>(null)
 
-  const [showFilterModal, setShowFilterModal] = useState(false)
   const offers = useFilteredOffers()
   const selectedCoin = useAppSelector(state => state.user.coinFilter)
   const { budget } = useAppSelector(state => state.budget)
 
-  const closeFilterModal = () => {
-    setShowFilterModal(false)
-  }
-  const openFilterModal = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => {
     dispatch(setCoinFilter(coin))
     tableWrapperRef.current?.scrollTo({ top: 0 })
@@ -42,7 +35,6 @@ const OrdersPage = () => {
 
   return (
     <div className={c.ordersPageContainer}>
-      {showFilterModal && <FilterModal close={closeFilterModal} />}
       <ul className={c.scrollList}>
         {coinsList.map(({ title, type }, idx) => (
           <li
