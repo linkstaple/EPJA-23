@@ -4,9 +4,32 @@ import cn from 'classnames'
 
 import Header from '../../components/Header/Header'
 import Footer from '../../components/Footer/Footer'
+import { useAppSelector } from 'src/hooks/useRedux'
+import { CoinFilterType } from 'src/store/types'
+import { banksMapper } from 'src/util/banksMapper'
 
 const OrderPage = () => {
+  const { activeCase, budget } = useAppSelector(state => state.budget)
   const cls = useStyles()
+
+  const buyAmount = roundWithAsset(budget / activeCase.buy.price, activeCase.buy.asset)
+  const sellAmount = roundWithAsset(buyAmount / activeCase.sell.marketPrice, activeCase.sell.asset)
+
+  function roundWithAsset(data: number, asset: CoinFilterType) {
+    switch (asset) {
+      case CoinFilterType.USDT:
+      case CoinFilterType.BUSD:
+        return data.toFixed(2)
+
+      case CoinFilterType.BTC:
+      case CoinFilterType.ETH:
+      case CoinFilterType.BNB:
+        return data.toFixed(8)
+
+      default:
+        return data.toFixed(0)
+    }
+  }
 
   return (
     <>
@@ -14,12 +37,16 @@ const OrderPage = () => {
 
       <div className={cls.subHeader}>
         <div className={cls.banks}>
-          <p>Тиньков - Тиньков</p>
+          <p>
+            {banksMapper[activeCase.buy.payType]} - {banksMapper[activeCase.sell.payType]}
+          </p>
         </div>
 
         <div className={cls.coins}>
-          <p>USDT - ETH</p>
-          <p className={cls.profitPercent}>+1,2%</p>
+          <p>
+            {activeCase.buy.asset} - {activeCase.sell.asset}
+          </p>
+          <p className={cls.profitPercent}>+{activeCase.profit}%</p>
         </div>
       </div>
       <div className={cls.steps}>
@@ -28,42 +55,50 @@ const OrderPage = () => {
             <p>1</p>
           </div>
           <div className={cn(cls.cell, cls.rightBorder)}>
-            <p className={cls.textYellow}>USDT</p>
-            <p>через Тиньков</p>
+            <p className={cls.textYellow}>{activeCase.buy.asset}</p>
+            <p>через {banksMapper[activeCase.buy.payType]}</p>
           </div>
           <div className={cls.cell}>
             <p className={cls.textMuted}>получаем</p>
-            <p className={cls.textYellow}>164.44 USDT</p>
+            <p className={cls.textYellow}>
+              {buyAmount} {activeCase.buy.asset}
+            </p>
           </div>
         </div>
+        {activeCase.buy.asset !== activeCase.sell.asset && (
+          <div className={cls.step}>
+            <div className={cn(cls.seqNumber, cls.rightBorder)}>
+              <p>2</p>
+            </div>
+            <div className={cn(cls.cell, cls.rightBorder)}>
+              <p className={cls.textMuted}>меняем</p>
+              <p className={cls.textAqua}>
+                {activeCase.buy.asset} на {activeCase.sell.asset}
+              </p>
+            </div>
+            <div className={cls.cell}>
+              <p className={cls.textMuted}>получаем</p>
+              <p className={cls.textAqua}>
+                {sellAmount} {activeCase.sell.asset}
+              </p>
+            </div>
+          </div>
+        )}
         <div className={cls.step}>
           <div className={cn(cls.seqNumber, cls.rightBorder)}>
-            <p>2</p>
-          </div>
-          <div className={cn(cls.cell, cls.rightBorder)}>
-            <p className={cls.textMuted}>меняем</p>
-            <p className={cls.textAqua}>USDT на ETH</p>
-          </div>
-          <div className={cls.cell}>
-            <p className={cls.textMuted}>получаем</p>
-            <p className={cls.textAqua}>0,023 ETH</p>
-          </div>
-        </div>
-        <div className={cls.step}>
-          <div className={cn(cls.seqNumber, cls.rightBorder)}>
-            <p>3</p>
+            <p>{activeCase.buy.asset === activeCase.sell.asset ? 2 : 3}</p>
           </div>
           <div className={cn(cls.cell, cls.rightBorder)}>
             <p className={cls.textMuted}>продаём</p>
-            <p>на Сбербанк</p>
+            <p>на {banksMapper[activeCase.sell.payType]}</p>
           </div>
           <div className={cn(cls.cell, cls.rightBorder)}>
             <p className={cls.textMuted}>по курсу</p>
-            <p>64,402</p>
+            <p>{new Intl.NumberFormat().format(activeCase.sell.price)}</p>
           </div>
           <div className={cls.cell}>
             <p className={cls.textMuted}>профит</p>
-            <p className={cls.profitPercent}>240 ₽</p>
+            <p className={cls.profitPercent}>{Math.floor((budget * activeCase.profit) / 100)} ₽</p>
           </div>
         </div>
       </div>

@@ -9,18 +9,20 @@ import forwardSVG from '@icons/Arrow.svg'
 import { setCoinFilter, coinsList, useUserData } from 'src/store/slices/userSlice'
 
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
-import { CoinFilterType } from 'src/store/types'
+import { CoinFilterType, Offer } from 'src/store/types'
 import { banksMapper } from 'src/util/banksMapper'
 import { setActiveCase } from 'src/store/slices/budgetSlice'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
+import { useNavigate } from 'react-router-dom'
+import { routeConfig } from 'src/util/routes'
 
 const OrdersPage = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { budget } = useAppSelector(state => state.budget)
 
   const c = useStyles()
-  const dispatch = useAppDispatch()
 
   const { offers, selectedCoin } = useUserData()
   const [showFilterModal, setShowFilterModal] = useState(false)
@@ -28,6 +30,10 @@ const OrdersPage = () => {
   const closeModal = () => setShowFilterModal(false)
   const onFilterClick = () => setShowFilterModal(true)
   const onCoinClick = (coin: CoinFilterType) => () => dispatch(setCoinFilter(coin))
+  const onOfferClick = (offer: Offer) => () => {
+    dispatch(setActiveCase(offer))
+    navigate(routeConfig.order.path)
+  }
 
   return (
     <div className={c.ordersPageContainer}>
@@ -76,7 +82,7 @@ const OrdersPage = () => {
                     <div className={c.offerItemContent}>
                       <button
                         className={c.forwardIcon}
-                        onClick={() => dispatch(setActiveCase(offer))}
+                        onClick={onOfferClick(offer)}
                       >
                         <img src={forwardSVG} />
                       </button>

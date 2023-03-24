@@ -1,4 +1,6 @@
-export const banksMapper: { [x: string]: string } = {
+import { BankType } from 'src/store/types'
+
+export const banksMapper: { [x: BankType]: string } = {
   TinkoffNew: 'Тинькофф',
   RosBank: 'Росбанк',
   RaiffeisenBank: 'Райффайзенбанк',
