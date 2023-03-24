@@ -107,17 +107,19 @@ const useStyles = createStyles(({ colors }) => ({
     flex: 1,
   },
   scrollList: {
+    width: '100vw',
     background: colors.background,
     display: 'flex',
     borderTop: '1px solid rgba(255, 255, 255, 0.03)',
     borderBottom: '1px solid rgba(255, 255, 255, 0.03)',
   },
   scrollListItem: {
+    width: '100%',
     color: colors.text,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     padding: [11, 14],
-    '& + &': {
-      marginLeft: 23,
-    },
     '&:hover': {
       cursor: 'pointer',
     },
