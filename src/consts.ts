@@ -20,3 +20,5 @@ export const coinsList = [
 ] as const
 
 export const banksList = Object.keys(banksMapper) as unknown as BankType[]
+
+export const FOOTER_HEIGHT = 86

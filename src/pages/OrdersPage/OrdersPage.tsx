@@ -11,7 +11,7 @@ import { setActiveCase } from 'src/store/slices/budgetSlice'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 import { CoinFilterType, Offer } from 'src/store/types'
 
-import { banksMapper, coinsList } from 'src/consts'
+import { FOOTER_HEIGHT, banksMapper, coinsList } from 'src/consts'
 import { routeConfig } from 'src/util/routes'
 
 import FilterModal from 'src/components/FilterModal/FilterModal'
@@ -106,13 +106,13 @@ const OrdersPage = () => {
 
 const useStyles = createStyles(({ colors }) => ({
   ordersPageContainer: {
-    width: '100%',
-    height: '100vh',
     position: 'relative',
     overflowX: 'hidden',
     overflowY: 'hidden',
     display: 'flex',
     flexFlow: 'column',
+    marginBottom: FOOTER_HEIGHT,
+    flex: 1,
   },
   scrollList: {
     background: colors.background,
@@ -137,7 +137,6 @@ const useStyles = createStyles(({ colors }) => ({
   offerBlock: {
     padding: [16, 12, 14],
     flex: '1 1 auto',
-    marginBottom: 86,
     overflow: 'hidden',
     display: 'flex',
     justifyContent: 'center',
