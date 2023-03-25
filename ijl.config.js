@@ -8,6 +8,7 @@ module.exports = {
       publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`,
     },
     resolve: {
+      // @ts-expect-error
       plugins: [new tsconfigPathsPlugin({ extensions: ['.ts', '.tsx', 'js'] })],
       extensions: ['.js', '.ts', '.tsx'],
     },
