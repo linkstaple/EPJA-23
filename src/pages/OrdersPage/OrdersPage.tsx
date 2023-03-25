@@ -8,9 +8,9 @@ import forwardSVG from '@icons/Arrow.svg'
 import { setCoinFilter, useFilteredOffers } from 'src/store/slices/userSlice'
 import { setActiveCase } from 'src/store/slices/budgetSlice'
 
+import useTableScrollWatcher from 'src/hooks/useScrollWatcher'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 import { CoinFilterType, Offer } from 'src/store/types'
-
 import { FOOTER_HEIGHT, banksMapper, coinsList } from 'src/consts'
 import { routeConfig } from 'src/util/routes'
 
@@ -20,13 +20,14 @@ const OrdersPage = () => {
   const c = useStyles()
   const tableWrapperRef = useRef<HTMLDivElement>(null)
 
+  useTableScrollWatcher(tableWrapperRef)
+
   const offers = useFilteredOffers()
   const selectedCoin = useAppSelector(state => state.user.coinFilter)
   const { budget } = useAppSelector(state => state.budget)
 
   const onCoinClick = (coin: CoinFilterType) => () => {
     dispatch(setCoinFilter(coin))
-    tableWrapperRef.current?.scrollTo({ top: 0 })
   }
   const onOfferClick = (offer: Offer) => () => {
     dispatch(setActiveCase(offer))
