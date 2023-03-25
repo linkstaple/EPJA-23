@@ -1,5 +1,5 @@
 const pkg = require('./package.json')
-const tsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const tsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = {
   apiPath: 'stubs/api',
@@ -8,12 +8,12 @@ module.exports = {
       publicPath: `/static/${pkg.name}/${process.env.VERSION || pkg.version}/`,
     },
     resolve: {
-      plugins: [new tsconfigPathsPlugin({extensions: ['.ts', '.tsx', 'js']})],
-      extensions: ['.js', '.ts', '.tsx']
-    }
+      plugins: [new tsconfigPathsPlugin({ extensions: ['.ts', '.tsx', 'js'] })],
+      extensions: ['.js', '.ts', '.tsx'],
+    },
   },
   navigations: {
-    'epja-23.main': '/epja-23',
+    'epja-123.main': '/epja-123',
   },
   features: {
     'epja-23': {

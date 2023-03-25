@@ -11,7 +11,8 @@ import { setActiveCase } from 'src/store/slices/budgetSlice'
 import useTableScrollWatcher from 'src/hooks/useScrollWatcher'
 import { useAppDispatch, useAppSelector } from 'src/hooks/useRedux'
 import { CoinFilterType, Offer } from 'src/store/types'
-import { FOOTER_HEIGHT, banksMapper, coinsList } from 'src/consts'
+
+import { FOOTER_HEIGHT, banksMapper, coinsList } from 'src/util/consts'
 import { routeConfig } from 'src/util/routes'
 
 const OrdersPage = () => {
