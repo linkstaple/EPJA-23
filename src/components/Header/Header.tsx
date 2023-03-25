@@ -37,10 +37,17 @@ const useStyles = createStyles(({ colors }) => ({
     background: colors.backgroundMinor,
     padding: [16, 21],
     display: 'flex',
-    justifyContent: 'space-between',
 
     '& > p': {
       color: colors.text,
+
+      '&:first-child': {
+        width: '100%',
+      },
+      '&:last-child': {
+        width: '100%',
+        textAlign: 'right',
+      },
     },
   },
 }))

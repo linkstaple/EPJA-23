@@ -43,6 +43,7 @@ const useStyles = createStyles(({ colors }) => ({
   '@global': {
     '*': {
       boxSizing: 'border-box',
+      fontFamily: 'TTNorms, sans-serif',
     },
     p: {
       margin: 0,

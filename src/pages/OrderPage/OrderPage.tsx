@@ -6,7 +6,7 @@ import cn from 'classnames'
 
 import { roundWithAsset } from 'src/util/roundWithAsset'
 import { routeConfig } from 'src/util/routes'
-import { FOOTER_HEIGHT, banksMapper } from 'src/consts'
+import { FOOTER_HEIGHT, banksMapper } from 'src/util/consts'
 
 const OrderPage = () => {
   const navigate = useNavigate()
@@ -99,7 +99,6 @@ const useStyles = createStyles(({ colors }) => ({
   subHeader: {
     height: 40,
     width: '100%',
-    fontFamily: 'TT Norms, sans-serif',
     fontSize: 14,
     fontWeight: '700',
     display: 'flex',

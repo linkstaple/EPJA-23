@@ -1,6 +1,7 @@
 import React from 'react'
 import { RouteProps } from 'react-router-dom'
 import { OrderPage, MainPage, OrdersPage } from '../pages'
+import { getNavigationsValue } from '@ijl/cli'
 
 export enum AppRoutes {
   MAIN = 'main',
@@ -8,7 +9,7 @@ export enum AppRoutes {
   ORDER = 'order',
 }
 
-export const __BASE_ROUTE__ = '/epja-23'
+export const __BASE_ROUTE__ = getNavigationsValue('epja-123.main')
 
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: __BASE_ROUTE__ + '/',

@@ -6,7 +6,7 @@ import backSVG from '@icons/Group.svg'
 import settingsSVG from '@icons/setting-1.svg'
 import { routeConfig } from 'src/util/routes'
 import { useAppSelector } from 'src/hooks/useRedux'
-import { FOOTER_HEIGHT } from 'src/consts'
+import { FOOTER_HEIGHT } from 'src/util/consts'
 
 interface FooterProps {
   onOpenFiter?: () => void
@@ -25,12 +25,14 @@ const Footer: FC<FooterProps> = ({ onOpenFiter }) => {
 
   return (
     <div className={c.footer}>
-      <button
-        className={c.backIcon}
-        onClick={handleReturn}
-      >
-        <img src={backSVG} />
-      </button>
+      <div className={c.backContainer}>
+        <button
+          className={c.backIcon}
+          onClick={handleReturn}
+        >
+          <img src={backSVG} />
+        </button>
+      </div>
       <button
         className={c.filterBlock}
         onClick={onOpenFiter}
@@ -54,9 +56,11 @@ const useStyles = createStyles(({ colors }) => ({
     position: 'absolute',
     bottom: 0,
     display: 'flex',
-    justifyContent: 'space-between',
     alignItems: 'center',
     background: colors.background,
+  },
+  backContainer: {
+    width: '100%',
   },
   backIcon: {
     width: 40,
@@ -89,10 +93,14 @@ const useStyles = createStyles(({ colors }) => ({
     },
   },
   budgetBlock: {
+    width: '100%',
     height: 'min-content',
     '& > p:nth-child(1)': {
       color: colors.text,
     },
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
   },
   priceLabel: {
     color: colors.control,
