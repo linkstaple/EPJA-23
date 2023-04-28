@@ -35,8 +35,8 @@ export const Budget = () => {
         <p>Стартовый</p>
         <p>бюджет</p>
       </div>
-      <div>
-        <div className={cls.bugetContainer}>
+      <form>
+        <label className={cls.bugetContainer}>
           <img
             src={MoneyIcon}
             alt="Money"
@@ -50,7 +50,7 @@ export const Budget = () => {
             src={RubleIcon}
             alt="Ruble"
           />
-        </div>
+        </label>
 
         <div className={cls.btnContainer}>
           <button
@@ -60,7 +60,7 @@ export const Budget = () => {
             Продолжить
           </button>
         </div>
-      </div>
+      </form>
     </div>
   )
 }
