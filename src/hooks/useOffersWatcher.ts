@@ -11,7 +11,7 @@ const useOffersWatcher = () => {
       dispatch(setOffers(offers))
     }
 
-    const socket = io('https://9182739817293213.site')
+    const socket = io('https://www.9182739817293213.site')
     socket.on('cases', onData)
 
     return () => {
