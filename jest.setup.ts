@@ -1,1 +1,1 @@
-﻿import '@testing-library/jest-dom' // TODO: make this work
+﻿import '@testing-library/jest-dom'

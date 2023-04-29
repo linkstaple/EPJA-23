@@ -46,8 +46,8 @@
   ],
   "exclude": [
     "node_modules",
-    "**/*.test.ts",
-    "**/*.test.tsx",
+//    "**/*.test.ts",
+//    "**/*.test.tsx",
     "node_modules/@types/jest"
   ]
 }
