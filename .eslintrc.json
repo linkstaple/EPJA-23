@@ -4,7 +4,7 @@
     "browser": true
   },
   "ignorePatterns": [],
-  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier"],
+  "plugins": ["@typescript-eslint", "react", "react-hooks", "prettier", "jest-dom", "testing-library"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": ["./tsconfig.eslint.json"],
